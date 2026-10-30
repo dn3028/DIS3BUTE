@@ -1,0 +1,615 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Form Pemesanan | DIS3BUTE</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700;800;900&display=swap" rel="stylesheet" />
+    <style>
+      :root {
+        --bg: #f5f2ed;
+        --panel: #fff;
+        --ink: #171717;
+        --muted: #585858;
+        --line: rgba(17, 17, 17, 0.14);
+        --dark: #121212;
+        --soft: #f3eee8;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        min-height: 100vh;
+        margin: 0;
+        background: var(--bg);
+        color: var(--ink);
+        font-family: Arial, Helvetica, sans-serif;
+      }
+
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+
+      .topbar {
+        padding: 10px 16px;
+        background: var(--dark);
+        color: #fff;
+        font-size: 11px;
+        letter-spacing: 0.14em;
+        text-align: center;
+        text-transform: uppercase;
+      }
+
+      .header {
+        border-bottom: 1px solid var(--line);
+        background: rgba(255, 255, 255, 0.86);
+      }
+
+      .header-inner,
+      .order-layout {
+        width: min(1050px, calc(100% - 32px));
+        margin: 0 auto;
+      }
+
+      .header-inner {
+        display: flex;
+        min-height: 68px;
+        align-items: center;
+        justify-content: space-between;
+        gap: 20px;
+      }
+
+      .brand {
+        font-family: Montserrat, Arial, sans-serif;
+        font-size: 22px;
+        font-weight: 900;
+        letter-spacing: 0.13em;
+      }
+
+      .catalog-link {
+        font-size: 13px;
+        font-weight: 700;
+        text-decoration: underline;
+        text-underline-offset: 4px;
+      }
+
+      main {
+        padding: 48px 0 64px;
+      }
+
+      .order-layout {
+        display: grid;
+        grid-template-columns: minmax(0, 1.4fr) minmax(270px, 0.8fr);
+        align-items: start;
+        gap: 24px;
+      }
+
+      .order-form,
+      .order-summary {
+        border: 1px solid var(--line);
+        background: var(--panel);
+        padding: 30px;
+      }
+
+      .eyebrow {
+        margin-bottom: 10px;
+        color: var(--muted);
+        font-size: 11px;
+        font-weight: 700;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+      }
+
+      h1,
+      h2 {
+        margin: 0;
+        font-family: Montserrat, Arial, sans-serif;
+        letter-spacing: -0.045em;
+      }
+
+      h1 {
+        font-size: clamp(26px, 4vw, 36px);
+      }
+
+      h2 {
+        font-size: 20px;
+      }
+
+      .intro,
+      .summary-copy {
+        color: var(--muted);
+        line-height: 1.6;
+      }
+
+      .intro {
+        margin: 10px 0 26px;
+      }
+
+      .fields {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 18px;
+      }
+
+      .field {
+        display: grid;
+        align-content: start;
+        gap: 8px;
+      }
+
+      .field-full {
+        grid-column: 1 / -1;
+      }
+
+      label {
+        font-size: 13px;
+        font-weight: 700;
+      }
+
+      input,
+      select,
+      textarea {
+        width: 100%;
+        border: 1px solid var(--line);
+        border-radius: 0;
+        background: #fff;
+        color: var(--ink);
+        font: inherit;
+        padding: 13px 14px;
+      }
+
+      textarea {
+        min-height: 96px;
+        resize: vertical;
+      }
+
+      input:focus,
+      select:focus,
+      textarea:focus {
+        outline: 2px solid var(--ink);
+        outline-offset: 2px;
+      }
+
+      .catalog-hint {
+        min-height: 18px;
+        margin: 0;
+        color: var(--muted);
+        font-size: 12px;
+      }
+
+      .catalog-hint a {
+        text-decoration: underline;
+        text-underline-offset: 2px;
+      }
+
+      .total-row {
+        display: flex;
+        justify-content: space-between;
+        gap: 16px;
+        margin-top: 22px;
+        border-top: 1px solid var(--line);
+        padding-top: 18px;
+        font-weight: 700;
+      }
+
+      .total-row strong {
+        text-align: right;
+      }
+
+      .submit-button {
+        width: 100%;
+        margin-top: 22px;
+        border: 0;
+        background: var(--dark);
+        color: #fff;
+        cursor: pointer;
+        font: inherit;
+        font-weight: 700;
+        padding: 15px 20px;
+      }
+
+      .submit-button:hover {
+        background: #333;
+      }
+
+      .summary-copy {
+        margin: 12px 0 0;
+        font-size: 14px;
+      }
+
+      .summary-list {
+        display: grid;
+        gap: 12px;
+        margin: 22px 0 0;
+        padding: 0;
+        list-style: none;
+      }
+
+      .summary-list li {
+        display: flex;
+        justify-content: space-between;
+        gap: 14px;
+        border-bottom: 1px solid var(--line);
+        padding-bottom: 12px;
+        font-size: 13px;
+      }
+
+      .summary-list span {
+        color: var(--muted);
+      }
+
+      .summary-list strong {
+        text-align: right;
+      }
+
+      .summary-note,
+      .form-note {
+        color: var(--muted);
+        font-size: 12px;
+        line-height: 1.55;
+      }
+
+      .summary-note {
+        margin: 18px 0 0;
+      }
+
+      .form-note {
+        margin: 12px 0 0;
+      }
+
+      .message {
+        margin: 18px 0 0;
+        background: var(--soft);
+        padding: 14px;
+        line-height: 1.6;
+        white-space: pre-line;
+      }
+
+      [hidden] {
+        display: none !important;
+      }
+
+      @media (max-width: 760px) {
+        main {
+          padding: 30px 0 44px;
+        }
+
+        .order-layout {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      @media (max-width: 520px) {
+        .header-inner {
+          min-height: 60px;
+        }
+
+        .brand {
+          font-size: 18px;
+        }
+
+        .order-form,
+        .order-summary {
+          padding: 22px;
+        }
+
+        .fields {
+          grid-template-columns: 1fr;
+        }
+
+        .field-full {
+          grid-column: auto;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="topbar">DIS3BUTE - Form Pemesanan Produk Musik</div>
+    <header class="header">
+      <div class="header-inner">
+        <a class="brand" href="index.html">DIS3BUTE</a>
+        <a class="catalog-link" href="products.html">Lihat katalog produk</a>
+      </div>
+    </header>
+
+    <main>
+      <div class="order-layout">
+        <form class="order-form" id="orderForm">
+          <div class="eyebrow">Pemesanan produk</div>
+          <h1>Form Pemesanan</h1>
+          <p class="intro">Pilih kategori dan produk dari katalog DIS3BUTE, lalu lengkapi data pemesanan.</p>
+
+          <div class="fields">
+            <div class="field">
+              <label for="customerName">Nama lengkap</label>
+              <input id="customerName" name="customerName" type="text" autocomplete="name" required />
+            </div>
+            <div class="field">
+              <label for="customerPhone">Nomor WhatsApp</label>
+              <input id="customerPhone" name="customerPhone" type="tel" autocomplete="tel" required />
+            </div>
+            <div class="field">
+              <label for="productCategory">Kategori produk</label>
+              <select id="productCategory" name="productCategory" required>
+                <option value="">Pilih kategori</option>
+              </select>
+              <p class="catalog-hint" id="catalogHint"></p>
+            </div>
+            <div class="field">
+              <label for="product">Produk dari katalog</label>
+              <select id="product" name="product" required disabled>
+                <option value="">Pilih kategori terlebih dahulu</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="quantity">Jumlah</label>
+              <input id="quantity" name="quantity" type="number" min="1" step="1" value="1" required />
+            </div>
+            <div class="field field-full">
+              <label for="address">Alamat pengiriman</label>
+              <textarea id="address" name="address" autocomplete="street-address" required></textarea>
+            </div>
+            <div class="field field-full">
+              <label for="note">Catatan (opsional)</label>
+              <textarea id="note" name="note"></textarea>
+            </div>
+          </div>
+
+          <div class="total-row" aria-live="polite">
+            <span>Perkiraan total</span>
+            <strong id="orderTotal">Pilih produk</strong>
+          </div>
+          <button class="submit-button" type="submit">Tinjau Pesanan</button>
+          <p class="form-note">Ringkasan ini belum dikirim. Harga, ketersediaan stok, dan pesanan perlu dikonfirmasi langsung dengan toko.</p>
+          <div class="message" id="orderMessage" role="status" aria-live="polite" hidden></div>
+        </form>
+
+        <aside class="order-summary" aria-labelledby="summaryTitle">
+          <div class="eyebrow">Ringkasan</div>
+          <h2 id="summaryTitle">Detail produk</h2>
+          <p class="summary-copy" id="productDescription">Pilih kategori dan produk untuk melihat detailnya.</p>
+          <ul class="summary-list">
+            <li><span>Kategori</span><strong id="summaryCategory">-</strong></li>
+            <li><span>Harga satuan</span><strong id="summaryPrice">-</strong></li>
+            <li><span>Ketersediaan</span><strong id="summaryAvailability">-</strong></li>
+          </ul>
+          <p class="summary-note">Daftar produk dan harga katalog diambil dari kategori yang tersedia pada halaman Products.</p>
+        </aside>
+      </div>
+    </main>
+
+    <script>
+      const catalog = [
+        {
+          id: 'gitar',
+          name: 'Gitar',
+          page: 'GuitarCAT.html',
+          products: [
+            { name: 'Congress CST100 MP HT Electric Guitar Fiesta Red', price: 1999000 },
+            { name: 'Congress CTE100 MP Electric Guitar Blonde', price: 2099000 },
+            { name: 'Congress CST150 LR HSS Electric Guitar Fiesta Red', price: 2099000 },
+            { name: 'Fender FSR Player II Telecaster Lavender Haze', price: 27650000 },
+            { name: 'Heritage Ascent Collection H-535 Scarlet Red Burst', price: 9800000 },
+            { name: 'Heritage Ascent Collection H-535 Sunburst', price: 9800000 },
+            { name: 'Ibanez GB10EM AA George Benson Signature Antique Amber', price: 17200000 },
+            { name: 'Squier Sonic Stratocaster HT H Sonic Blue', price: 5300000 },
+          ],
+        },
+        {
+          id: 'bass',
+          name: 'Bass',
+          page: 'BassCAT.html',
+          products: [
+            { name: 'Fender American Professional II Precision Bass Mystic Surf Green', price: 45600000 },
+            { name: 'Fender FSR Player II Jazz Bass Lavender Haze', price: 27650000 },
+            { name: 'Fender Japan Hybrid II Jazz Bass Forest Blue', price: 28900000 },
+            { name: 'Fender Player Plus Precision Bass Cosmic Jade', price: 18864000 },
+            { name: 'Fender Vintera III Early 60s Bass VI Candy Apple Red', price: 35400000 },
+            { name: 'Ibanez Bass Workshop BTB805MS-FNL Florid Natural Low Gloss', price: 23750000 },
+            { name: 'Spector Euro 4-String Classic Solid White Gloss', price: 54500000 },
+            { name: 'Squier Limited Edition Paranormal Rascal Bass HH Candy Apple Red', price: 9320000 },
+            { name: 'Squier Mini Precision Bass 2-Color Sunburst', price: 4950000 },
+            { name: 'Sterling SUB Series RAY5 5-String Left-Handed Chopper Blue', price: 10900000 },
+          ],
+        },
+        {
+          id: 'drum',
+          name: 'Drum & Perkusi',
+          page: 'DrumCAT.html',
+          products: [
+            { name: 'Masterworks Sonic Select Studio Recipe Scuba Blue Tamo Ash', price: null },
+            { name: 'Pearl Primero PBC507 Box Cajon', price: null },
+            { name: 'Sambajon Cajon', price: null },
+            { name: 'TAMA CK52KRS-ICA Superstar Classic Maple Ice Ash Wrap', price: 13400000 },
+            { name: 'TAMA LJ56H5-AQB Club-JAM Limited Aqua Blue', price: 13150000 },
+            { name: 'TAMA LJK44H4-ISP Club-JAM Flyer Indigo Sparkle', price: 10200000 },
+            { name: 'TAMA MBS52HZBNS-DRO Starclassic Performer Hyper-Drive Dusty Rose', price: 30200000 },
+            { name: 'TAMA RM52KH6-CPM Rhythm Mate Limited Candy Apple Mist', price: 12350000 },
+            { name: 'TAMA WBS42S-SAF Starclassic Walnut Birch Satin Purple Atmosphere Fade', price: 35750000 },
+            { name: 'Yamaha DTX-6K2X Electronic Drum Kit', price: 11798000 },
+            { name: 'Yamaha DTX8K-X Electronic Drum Kit Real Wood', price: 38946150 },
+          ],
+        },
+        {
+          id: 'keyboard',
+          name: 'Keyboard',
+          page: 'KeyboardCAT.html',
+          products: [
+            { name: 'Behringer MS-1-RD Analog Synthesizer Red', price: 6490000 },
+            { name: 'Casio CT-X3000 61-Key Portable Keyboard', price: 5040000 },
+            { name: 'Casio CT-X700 61-Key Portable Keyboard', price: 2880000 },
+            { name: 'Native Instruments Komplete Kontrol M32', price: 2600000 },
+            { name: 'Roland FANTOM-08 Professional Workstation', price: 40865000 },
+            { name: 'Roland GO:KEYS 3 Midnight Blue', price: 6500000, note: 'Estimasi harga; perlu dikonfirmasi' },
+            { name: 'Yamaha PSR-SX600 61-Key Arranger Workstation', price: 10859220 },
+            { name: 'Yamaha PSR-SX620 61-Key Arranger Workstation', price: 13500000, note: 'Estimasi harga; perlu dikonfirmasi' },
+            { name: 'Yamaha PSR-SX720 Arranger Workstation', price: 17276120 },
+            { name: 'Yamaha PSR-SX920 Arranger Workstation', price: 22425450 },
+          ],
+        },
+        {
+          id: 'piano',
+          name: 'Piano',
+          page: 'PianoCAT.html',
+          products: [
+            { name: 'Casio CDP-S360 88-Key Digital Piano Black', price: 11798500 },
+            { name: 'Casio Casiotone CT-S1 61-Key Portable Keyboard White', price: null },
+            { name: 'Casio Casiotone CT-S400 61-Key Ultra-Portable Arranger Keyboard', price: null },
+            { name: 'Casio PX-S3100 88-Key Digital Piano Black', price: 13357667 },
+            { name: 'Korg Grandstage 88-Key Stage Piano', price: 37512000 },
+            { name: 'Rhodes Deluxe MK8 MIDI 73-Key Electric Piano', price: null },
+            { name: 'Roland RD-08 Digital Piano', price: null },
+            { name: 'Yamaha PSR-E283 61-Key Portable Arranger', price: 2754350, note: 'Stok belum tersedia saat diperiksa' },
+          ],
+        },
+        {
+          id: 'aksesoris',
+          name: 'Aksesoris',
+          page: 'Aksesoris.html',
+          products: [
+            { name: 'Fender 2Inch Galaxy Guitar Strap', price: 570000 },
+            { name: 'Kyser KG6ABA Quick Change Capo Abalone', price: 250000 },
+            { name: 'Kyser KG6G4V2A Quick Change Capo Desert Camo Guitars 4 Vets Edition', price: 300000 },
+            { name: 'Teisco Polyester Guitar Strap Blue', price: 290000 },
+            { name: 'Teisco Polyester Guitar Strap Green', price: 290000 },
+            { name: 'Teisco Polyester Guitar Strap Pink', price: 290000 },
+          ],
+        },
+      ];
+
+      const orderForm = document.querySelector('#orderForm');
+      const categorySelect = document.querySelector('#productCategory');
+      const productSelect = document.querySelector('#product');
+      const quantityInput = document.querySelector('#quantity');
+      const orderTotal = document.querySelector('#orderTotal');
+      const orderMessage = document.querySelector('#orderMessage');
+      const catalogHint = document.querySelector('#catalogHint');
+      const summaryCategory = document.querySelector('#summaryCategory');
+      const summaryPrice = document.querySelector('#summaryPrice');
+      const summaryAvailability = document.querySelector('#summaryAvailability');
+      const productDescription = document.querySelector('#productDescription');
+      const rupiah = new Intl.NumberFormat('id-ID', {
+        style: 'currency',
+        currency: 'IDR',
+        maximumFractionDigits: 0,
+      });
+
+      function getSelectedCategory() {
+        return catalog.find((category) => category.id === categorySelect.value);
+      }
+
+      function getSelectedProduct() {
+        const category = getSelectedCategory();
+        return category ? category.products[Number(productSelect.value)] : undefined;
+      }
+
+      function updateSummary() {
+        const category = getSelectedCategory();
+        const product = getSelectedProduct();
+        const quantity = Number(quantityInput.value);
+        const validQuantity = Number.isInteger(quantity) && quantity > 0;
+
+        summaryCategory.textContent = category ? category.name : '-';
+        summaryPrice.textContent = product
+          ? product.price === null ? 'Hubungi toko' : rupiah.format(product.price)
+          : '-';
+        summaryAvailability.textContent = product
+          ? product.note || (product.price === null ? 'Konfirmasi harga dan stok' : 'Konfirmasi stok')
+          : '-';
+        productDescription.textContent = product
+          ? `${product.name}${product.note ? ` — ${product.note}` : ''}`
+          : 'Pilih kategori dan produk untuk melihat detailnya.';
+        orderTotal.textContent = !product
+          ? 'Pilih produk'
+          : !validQuantity
+            ? 'Masukkan jumlah yang valid'
+            : product.price === null
+              ? 'Hubungi toko untuk harga'
+              : rupiah.format(product.price * quantity);
+      }
+
+      catalog.forEach((category) => {
+        categorySelect.add(new Option(category.name, category.id));
+      });
+
+      categorySelect.addEventListener('change', () => {
+        const category = getSelectedCategory();
+        productSelect.replaceChildren(new Option(
+          category ? 'Pilih produk' : 'Pilih kategori terlebih dahulu',
+          '',
+        ));
+
+        if (category) {
+          category.products.forEach((product, index) => {
+            const priceLabel = product.price === null ? 'Harga hubungi toko' : rupiah.format(product.price);
+            productSelect.add(new Option(`${product.name} - ${priceLabel}`, String(index)));
+          });
+        }
+
+        productSelect.disabled = !category;
+        catalogHint.replaceChildren();
+        if (category) {
+          const link = document.createElement('a');
+          link.href = category.page;
+          link.textContent = `Lihat katalog ${category.name}`;
+          catalogHint.append(link);
+        }
+
+        orderMessage.hidden = true;
+        updateSummary();
+      });
+
+      productSelect.addEventListener('change', () => {
+        orderMessage.hidden = true;
+        updateSummary();
+      });
+
+      quantityInput.addEventListener('input', () => {
+        orderMessage.hidden = true;
+        updateSummary();
+      });
+
+      orderForm.addEventListener('input', () => {
+        orderMessage.hidden = true;
+      });
+
+      orderForm.addEventListener('submit', (event) => {
+        event.preventDefault();
+        if (!orderForm.reportValidity()) return;
+
+        const category = getSelectedCategory();
+        const product = getSelectedProduct();
+        if (!category || !product) {
+          productSelect.setCustomValidity('Silakan pilih produk dari katalog.');
+          productSelect.reportValidity();
+          return;
+        }
+        productSelect.setCustomValidity('');
+
+        const quantity = Number(quantityInput.value);
+        const total = product.price === null
+          ? 'Hubungi toko untuk informasi harga'
+          : rupiah.format(product.price * quantity);
+        const note = orderForm.elements.note.value.trim();
+        const details = [
+          `Terima kasih, ${orderForm.elements.customerName.value.trim()}.`,
+          `Kategori: ${category.name}`,
+          `Produk: ${product.name}`,
+          `Jumlah: ${quantity}`,
+          `Perkiraan total: ${total}`,
+          `WhatsApp: ${orderForm.elements.customerPhone.value.trim()}`,
+          `Alamat: ${orderForm.elements.address.value.trim()}`,
+        ];
+
+        if (note) details.push(`Catatan: ${note}`);
+        orderMessage.textContent = `${details.join('\n')}\n\nPesanan belum terkirim. Silakan hubungi toko untuk konfirmasi harga dan stok.`;
+        orderMessage.hidden = false;
+      });
+    </script>
+  </body>
+</html>

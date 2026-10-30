@@ -1,0 +1,1417 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>DIS3BUTE</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+    <style>
+      :root {
+        --bg: #f5f2ed;
+        --panel: #ffffff;
+        --ink: #171717;
+        --muted: #585858;
+        --line: rgba(17, 17, 17, 0.12);
+        --soft: #efefef;
+        --accent: #d7d0c4;
+        --dark: #121212;
+        --red: #b4161f;
+        --shadow: 0 18px 42px rgba(0, 0, 0, 0.12);
+      }
+
+      * { box-sizing: border-box; }
+
+      html { scroll-behavior: smooth; }
+
+      body {
+        margin: 0;
+        font-family: Arial, Helvetica, sans-serif;
+        background: var(--bg);
+        color: var(--ink);
+      }
+
+      img {
+        max-width: 100%;
+        display: block;
+      }
+
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+
+      button, input {
+        font: inherit;
+      }
+
+     
+      .topbar {
+        background: #111;
+        color: #f3f3f3;
+        font-size: 11px;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        text-align: center;
+        padding: 10px 20px;
+      }
+
+      .container {
+        width: min(1280px, calc(100% - 32px));
+        margin: 0 auto;
+      }
+
+      .header {
+        background: rgba(255, 255, 255, 0.82);
+        backdrop-filter: blur(8px);
+        position: sticky;
+        top: 0;
+        z-index: 20;
+        border-bottom: 1px solid var(--line);
+      }
+
+      .header-inner {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 20px;
+        height: 60px;
+      }
+
+      .brand {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        min-width: 150px;
+      }
+
+      .brand-mark {
+        font-family: 'Montserrat', sans-serif;
+  font-weight: 900;
+  letter-spacing: 0.13em;
+  font-size: 2.2rem;
+      }
+
+      .nav {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 40px;
+        flex: 2;
+        font-size: 14px;
+        font-weight: 600;
+      }
+
+      .nav-item {
+        position: relative;
+      }
+
+      .nav a {
+        font-family: 'Montserrat', sans-serif;
+        position: relative;
+        color: #161616;
+        text-transform: none;
+        display: inline-block;
+        transition: color 0.25s ease;
+      }
+
+      .nav a::after {
+        content: "";
+        position: absolute;
+        left: 0;
+        bottom: -8px;
+        width: 100%;
+        height: 1px;
+        background: currentColor;
+        transform: scaleX(0);
+        transform-origin: left;
+        transition: transform 0.25s ease;
+      }
+
+      .nav a:hover::after,
+      .nav a:focus-visible::after,
+      .nav .nav-item:hover > a::after,
+      .nav .nav-item:focus-within > a::after {
+        transform: scaleX(1);
+      }
+
+      .dropdown {
+        position: absolute;
+        top: calc(100% + 18px);
+        left: 0;
+        min-width: 220px;
+        background: rgba(255, 255, 255, 0.96);
+        border: 1px solid var(--line);
+        box-shadow: var(--shadow);
+        padding: 12px 0;
+        opacity: 0;
+        visibility: hidden;
+        transform: translateY(8px);
+        transition: all 0.2s ease;
+        z-index: 30;
+      }
+
+      .nav-item:hover .dropdown,
+      .nav-item:focus-within .dropdown {
+        opacity: 1;
+        visibility: visible;
+        transform: translateY(0);
+      }
+
+      .dropdown a {
+        display: block;
+        position: relative;
+        padding: 10px 16px;
+        font-size: 13px;
+        letter-spacing: 0.04em;
+        color: var(--ink);
+        transition: color 0.25s ease;
+      }
+
+      .dropdown a::after {
+        content: "";
+        position: absolute;
+        left: 16px;
+        bottom: 8px;
+        width: calc(100% - 32px);
+        height: 1px;
+        background: currentColor;
+        transform: scaleX(0);
+        transform-origin: left;
+        transition: transform 0.25s ease;
+      }
+
+      .dropdown a:hover::after,
+      .dropdown a:focus-visible::after {
+        transform: scaleX(1);
+      }
+
+      .header-tools {
+        display: flex;
+        align-items: center;
+        gap: 18px;
+        font-size: 14px;
+        font-weight: 600;
+      }
+
+      .header-tools .ghost {
+        padding: 11px 18px;
+        border: 1px solid var(--line);
+        background: transparent;
+      }
+
+    
+
+      .hero {
+        position: relative;
+        min-height: 560px;
+         height: 560px;
+        background: #111;
+        overflow: hidden;
+        margin-top: 0;
+        padding-top: 0;
+      }
+
+      .hero-slider {
+        position: relative;
+        min-height: 560px;
+      }
+
+      .hero-slide {
+        position: absolute;
+        inset: 0;
+        opacity: 0;
+        visibility: hidden;
+        pointer-events: none;
+        transition: opacity 0.8s ease, visibility 0.8s ease;
+        background-size: cover;
+        background-position: center;
+      }
+
+      .hero-slide.is-active {
+        opacity: 1;
+        visibility: visible;
+        pointer-events: auto;
+      }
+
+      .hero-overlay {
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(90deg, rgba(7,7,7,0.8), rgba(7,7,7,0.42));
+      }
+
+      .hero-inner {
+        position: relative;
+        z-index: 1;
+        display: flex;
+        align-items: center;
+        min-height: 500px;
+        padding-top: 0;
+        padding-right: 90px;
+      }
+
+      .hero-copy {
+        color: #fff;
+        padding: 18px 0 48px 32px;
+        align-self: start;
+        max-width: 760px;
+        margin-left: 26px;
+        margin-top: 18px;
+      }
+
+      .eyebrow {
+        letter-spacing: 0.12em;
+        font-family: 'Montserrat', sans-serif;
+        text-transform: uppercase;
+        font-weight: 500;
+        font-size: 12px;
+        opacity: 0.9;
+        margin-bottom: 16px;
+      }
+
+      h1 {
+        margin: 0;
+        font-size: clamp(3rem, 6vw, 6rem);
+        line-height: 0.92;
+        letter-spacing: -0.05em;
+        max-width: 620px;
+      }
+
+      .hero-text {
+        margin-top: 20px;
+        max-width: 600px;
+        font-size: 20px;
+        line-height: 1.5;
+        color: rgba(255,255,255,0.8);
+      }
+
+      .cta-row {
+        margin-top: 32px;
+        display: flex;
+        gap: 16px;
+        flex-wrap: wrap;
+      }
+
+      .btn {
+        border: 2px solid transparent;
+        padding: 16px 26px;
+        font-weight: 700;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-width: 158px;
+      }
+
+      .btn-primary {
+        background: #fff;
+        color: #111;
+      }
+
+      .btn-primary:hover { background: #f2f2f2; }
+
+      .btn-secondary {
+        background: transparent;
+        color: #fff;
+        border-color: rgba(255,255,255,0.6);
+      }
+
+      .btn-secondary:hover { background: rgba(255,255,255,0.08); }
+
+      .hero-info {
+        display: none;
+      }
+
+      .hero-nav {
+        position: absolute;
+        top: 50%;
+        left: 0;
+        right: 0;
+        transform: translateY(-50%);
+        z-index: 2;
+        display: flex;
+        justify-content: space-between;
+        padding: 0 18px;
+        pointer-events: none;
+      }
+
+      .hero-arrow {
+        pointer-events: auto;
+        width: 38px;
+        height: 38px;
+        border: 1px solid rgba(255,255,255,0.26);
+        background: rgba(255,255,255,0.08);
+        backdrop-filter: blur(4px);
+        color: #fff;
+        font-size: 24px;
+        line-height: 1;
+        cursor: pointer;
+        transition: all 0.25s ease;
+        box-shadow: 0 10px 22px rgba(0, 0, 0, 0.16);
+      }
+
+      .hero-arrow:hover {
+        background: rgba(255,255,255,0.18);
+        border-color: rgba(255,255,255,0.5);
+        transform: translateY(-1px);
+      }
+
+      .hero-dots {
+        position: absolute;
+        left: 50%;
+        bottom: 70px;
+        transform: translateX(-50%);
+        z-index: 2;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .hero-dot {
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+        border: 0;
+        background: rgba(255,255,255,0.4);
+        padding: 0;
+        cursor: pointer;
+        transition: all 0.2s ease;
+      }
+
+      .hero-dot.is-active {
+        width: 34px;
+        border-radius: 999px;
+        background: #fff;
+      }
+
+      .hero-toggle {
+        position: absolute;
+        right: 20px;
+        top: 20px;
+        z-index: 2;
+        border: 1px solid rgba(255,255,255,0.26);
+        background: rgba(255,255,255,0.08);
+        color: #fff;
+        font-size: 11px;
+        font-weight: 700;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        padding: 9px 12px;
+        cursor: pointer;
+        backdrop-filter: blur(4px);
+        transition: all 0.2s ease;
+      }
+
+      .hero-toggle:hover {
+        background: rgba(255,255,255,0.16);
+      }
+
+      section {
+        padding: 84px 0;
+      }
+
+      .history-top {
+        padding: 0;
+        background: linear-gradient(180deg, #f6f2ee 0%, #f0ece7 100%);
+        border-bottom: 1px solid var(--line);
+      }
+
+      .history-top-inner {
+        display: grid;
+        grid-template-columns: 1.1fr 0.9fr;
+        gap: 28px;
+        align-items: center;
+        padding: 42px 0 30px;
+      }
+
+      .history-top-copy .eyebrow {
+        color: var(--ink);
+      }
+
+      .history-top-copy h2 {
+        margin: 0 0 18px;
+        font-size: clamp(2.3rem, 4vw, 4.2rem);
+        letter-spacing: -0.06em;
+        line-height: 0.98;
+      }
+
+      .history-top-copy p {
+        margin: 0;
+        color: var(--muted);
+        font-size: 18px;
+        line-height: 1.7;
+      }
+
+      .history-top-stats {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 16px;
+        margin-top: 24px;
+      }
+
+      .history-top-stats .stat {
+        background: #fff;
+        border: 1px solid var(--line);
+        padding: 18px 16px;
+      }
+
+      .history-top-stats strong {
+        display: block;
+        font-size: 1.5rem;
+        letter-spacing: -0.05em;
+        margin-bottom: 8px;
+        color: #111;
+      }
+
+      .history-top-stats span {
+        color: var(--muted);
+        font-size: 0.8rem;
+        line-height: 1.5;
+      }
+
+      .history-top-photo {
+        min-height: 420px;
+        background: url('IMG/serjarah.jpeg') center/cover no-repeat;
+        border: 1px solid var(--line);
+      }
+
+      .section-head {
+        display: flex;
+        align-items: end;
+        justify-content: space-between;
+        gap: 24px;
+        margin-bottom: 30px;
+      }
+
+      .section-head h2 {
+        font-size: clamp(2rem, 3vw, 3rem);
+        margin: 0;
+        letter-spacing: -0.05em;
+        line-height: 1;
+      }
+
+      .section-link {
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        font-size: 12px;
+      }
+
+      .product-slider {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+      }
+
+      .slider-btn {
+        width: 42px;
+        height: 42px;
+        border: 1px solid var(--line);
+        background: #fff;
+        color: var(--ink);
+        font-size: 28px;
+        line-height: 1;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        flex-shrink: 0;
+      }
+
+      .slider-btn:hover {
+        background: var(--ink);
+        color: #fff;
+      }
+
+      .product-grid {
+        display: flex;
+        gap: 24px;
+        overflow-x: auto;
+        padding: 8px 4px 10px;
+        scroll-snap-type: x proximity;
+        scrollbar-width: none;
+        scroll-behavior: smooth;
+        flex: 1;
+      }
+
+      .product-grid::-webkit-scrollbar {
+        display: none;
+      }
+
+      .product-card {
+        flex: 0 0 280px;
+        min-width: 280px;
+        background: var(--panel);
+        border: 1px solid var(--line);
+        border-radius: 14px;
+        overflow: hidden;
+        scroll-snap-align: start;
+        box-shadow: 0 10px 24px rgba(17, 17, 17, 0.04);
+      }
+
+      .product-card img {
+        height: 330px;
+        width: 100%;
+        object-fit: cover;
+        display: block;
+      }
+
+      .product-card .content {
+        padding: 18px 18px 20px;
+      }
+
+      .product-card .kicker {
+        font-size: 10px;
+        font-weight: 700;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: var(--muted);
+      }
+
+      .product-card h3 {
+        margin: 10px 0 8px;
+        font-size: 1.5rem;
+        letter-spacing: -0.04em;
+        line-height: 1.1;
+      }
+
+      .product-card p {
+        margin: 0;
+        color: var(--muted);
+        font-size: 15px;
+        line-height: 1.5;
+      }
+
+      .product-card .price-row {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        margin-top: 16px;
+        padding-top: 12px;
+        border-top: 1px solid var(--line);
+      }
+
+      .product-card .price {
+        font-size: 1.35rem;
+        font-weight: 800;
+        letter-spacing: -0.04em;
+      }
+
+      .product-card .tag {
+        font-size: 10px;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        font-weight: 700;
+        color: var(--ink);
+        background: #f3eee8;
+        padding: 7px 8px;
+      }
+
+      .product-card .catalog-link {
+        display: inline-block;
+        margin-top: 16px;
+        font-size: 12px;
+        font-weight: 700;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+        text-decoration: underline;
+        text-underline-offset: 4px;
+      }
+
+      .split-showcase {
+        display: grid;
+        grid-template-columns: 1.05fr 0.95fr;
+        gap: 30px;
+        align-items: stretch;
+      }
+
+      .showcase-photo {
+        min-height: 540px;
+        background: url('https://images.unsplash.com/photo-1525201548942-d8732f6617a0?auto=format&fit=crop&w=1200&q=80') center/cover no-repeat;
+      }
+
+      .showcase-copy {
+        background: #efefee;
+        border: 1px solid var(--line);
+        padding: 42px 36px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+      }
+
+      .showcase-copy .eyebrow {
+        color: var(--ink);
+      }
+
+      .showcase-copy h2 {
+        margin: 0 0 18px;
+        font-size: clamp(2.3rem, 4vw, 4rem);
+        letter-spacing: -0.05em;
+        line-height: 0.98;
+      }
+
+      .showcase-copy p {
+        color: var(--muted);
+        font-size: 18px;
+        line-height: 1.6;
+      }
+
+      .app-grid {
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 24px;
+      }
+
+      .app-card {
+        background: var(--panel);
+        border: 1px solid var(--line);
+        padding: 24px 18px 30px;
+        display: flex;
+        flex-direction: column;
+        min-height: 260px;
+      }
+
+      .app-icon {
+        width: 58px;
+        height: 58px;
+        border-radius: 16px;
+        background: linear-gradient(135deg, #121212, #4f4f4f);
+        display: grid;
+        place-items: center;
+        color: #fff;
+        font-weight: 700;
+        font-size: 1.3rem;
+        margin-bottom: 18px;
+      }
+
+      .app-card h3 {
+        font-size: 1.5rem;
+        letter-spacing: -0.04em;
+        margin: 0 0 8px;
+      }
+
+      .app-card p {
+        margin: 0;
+        color: var(--muted);
+        line-height: 1.6;
+        flex: 1;
+      }
+
+      .app-card .link {
+        display: inline-block;
+        margin-top: 18px;
+        font-weight: 700;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+        font-size: 12px;
+      }
+
+      .story {
+        background: #1f1f1f;
+        color: #fff;
+      }
+
+      .story-inner {
+        display: grid;
+        grid-template-columns: 1.05fr 0.95fr;
+        gap: 30px;
+        align-items: center;
+      }
+
+      .story-photo {
+        min-height: 520px;
+        background: url('https://images.unsplash.com/photo-1507838153414-b4b713384a76?auto=format&fit=crop&w=1200&q=80') center/cover no-repeat;
+      }
+
+      .story-copy {
+        padding: 10px 0;
+      }
+
+      .story-copy h2 {
+        font-size: clamp(2.2rem, 4vw, 4.2rem);
+        line-height: 0.98;
+        letter-spacing: -0.05em;
+        margin: 0 0 22px;
+      }
+
+      .story-copy p {
+        color: rgba(255,255,255,0.74);
+        font-size: 18px;
+        line-height: 1.7;
+        margin: 0 0 28px;
+      }
+
+      .newsletter {
+        background: #f3efe9;
+        border-top: 1px solid var(--line);
+        border-bottom: 1px solid var(--line);
+      }
+
+      .newsletter-inner {
+        display: grid;
+        grid-template-columns: 1.2fr 0.8fr;
+        gap: 24px;
+        align-items: center;
+        padding: 24px 0;
+      }
+
+      .newsletter h3 {
+        margin: 0;
+        font-size: clamp(2rem, 3vw, 3rem);
+        letter-spacing: -0.05em;
+      }
+
+      .newsletter p {
+        margin: 8px 0 0;
+        color: var(--muted);
+      }
+
+      .signup {
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        gap: 14px;
+      }
+
+      .signup input {
+        flex: 1;
+        min-width: 260px;
+        border: 1px solid var(--line);
+        background: #fff;
+        padding: 18px 18px;
+        font-size: 16px;
+      }
+
+      .signup button {
+        border: none;
+        background: #111;
+        color: #fff;
+        padding: 18px 22px;
+        min-width: 140px;
+        font-weight: 700;
+      }
+
+      .footer {
+        background: #111;
+        color: #fff;
+        padding: 52px 0 28px;
+      }
+
+      .footer-top {
+        display: flex;
+        justify-content: center;
+        padding-bottom: 32px;
+        text-align: center;
+      }
+
+      .footer-brand {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 18px;
+      }
+
+      .footer-logo {
+        font-family: 'Montserrat', sans-serif;
+  font-weight: 900;
+  letter-spacing: 0.18em;
+  font-size: 1.5rem;
+      }
+
+      .footer .small {
+        color: rgba(255,255,255,0.7);
+        line-height: 1.7;
+      }
+
+      .footer h4 {
+        margin: 0 0 16px;
+        font-size: 14px;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: rgba(255,255,255,0.8);
+      }
+
+      .footer ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        display: grid;
+        gap: 10px;
+      }
+
+      .footer a {
+        color: rgba(255,255,255,0.82);
+      }
+
+      .footer-bottom {
+        border-top: 1px solid rgba(255,255,255,0.2);
+        padding-top: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 20px;
+        flex-wrap: wrap;
+        color: rgba(255,255,255,0.7);
+        font-size: 13px;
+      }
+
+      .socials {
+        display: flex;
+        gap: 12px;
+        flex-wrap: wrap;
+      }
+
+      .socials span {
+        width: 32px;
+        height: 32px;
+        border-radius: 50%;
+        border: 1px solid rgba(255,255,255,0.2);
+        display: grid;
+        place-items: center;
+        background: rgba(255,255,255,0.04);
+      }
+
+      @media (max-width: 980px) {
+        .nav {
+          display: none;
+        }
+
+        .hero-inner,
+        .split-showcase,
+        .story-inner,
+        .newsletter-inner,
+        .history-top-inner,
+        .footer-top {
+          grid-template-columns: 1fr;
+        }
+
+        .history-top-photo {
+          min-height: 320px;
+        }
+
+        .product-grid,
+        .app-grid {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+
+        .signup {
+          justify-content: stretch;
+        }
+
+        .signup input {
+          min-width: 0;
+        }
+      }
+
+      @media (max-width: 620px) {
+        .header-inner {
+          height: auto;
+          padding: 16px 0;
+          flex-wrap: wrap;
+        }
+
+        .hero {
+          min-height: 620px;
+        }
+
+        .hero-inner {
+          min-height: 620px;
+        }
+
+        .product-grid,
+        .app-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .history-top-inner {
+          padding: 32px 0 24px;
+        }
+
+        .history-top-copy p {
+          font-size: 16px;
+        }
+
+        .history-top-stats {
+          gap: 8px;
+        }
+
+        .history-top-stats .stat {
+          padding: 14px 10px;
+        }
+
+        .history-top-photo {
+          min-height: 240px;
+        }
+
+        .section-head {
+          align-items: start;
+          flex-direction: column;
+        }
+
+        .signup {
+          flex-direction: column;
+          align-items: stretch;
+        }
+
+        .signup input,
+        .signup button {
+          width: 100%;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="topbar">DIS3BUTE - Menyediakan segala kebutuhan musik anda -</div>
+
+    <header class="header">
+      <div class="container header-inner">
+        <div class="brand">
+          <div class="brand-mark"><a href="index.html">DIS3BUTE</a></div>
+        </div>
+
+        <nav class="nav" aria-label="Main navigation">
+        
+          <a href="contact.html">KONTAK</a>
+          <div class="nav-item">
+            <a href="products.html">PRODUCTS</a>
+            <div class="dropdown" aria-label="Products menu">
+              <a href="GuitarCAT.html">Gitar</a>
+              <a href="BassCAT.html">Bass</a>
+              <a href="DrumCAT.html">Drum</a>
+              <a href="KeyboardCAT.html">Keyboard</a>
+              <a href="PianoCAT.html">Piano</a>
+              <a href="Aksesoris.html">Aksesoris</a>
+            </div>
+          </div>
+          <a href="distributor.html">DISTRIBUTOR</a>
+          <a href="service.html">SERVICE</a>
+          <a href="credit.html">CREDIT</a>
+          <a href="order.html">ORDER</a>
+        </nav>
+      </div>
+
+    </header>
+
+    <main>
+      <section class="hero" aria-label="Hero slider">
+        <div class="hero-slider">
+          <div class="hero-slide is-active" style="background-image: url('https://images.unsplash.com/photo-1511379938547-c1f69419868d?auto=format&fit=crop&w=1600&q=80');">
+            <div class="hero-overlay"></div>
+            <div class="container hero-inner">
+              <div class="hero-copy">
+                <div class="eyebrow">DIS3BUTE</div>
+                <h1>DAPATKAN GITAR<br />BERKUALITAS</h1>
+                <div class="hero-text">
+                  Di toko kami menyediakan berbagai macam gitar berkualitas tinggi, mulai dari gitar elektrik, akustik, hingga bass. Temukan gitar impian Anda dan rasakan pengalaman bermain yang luar biasa.
+                </div>
+                <div class="cta-row">
+                  <a href="GuitarCAT.html" class="btn btn-primary">SALE</a>
+                  <a href="GuitarCAT.html" class="btn btn-secondary">Learn More</a>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+          <div class="hero-slide" style="background-image: url('https://images.unsplash.com/photo-1525201548942-d8732f6617a0?auto=format&fit=crop&w=1600&q=80');">
+            <div class="hero-overlay"></div>
+            <div class="container hero-inner">
+              <div class="hero-copy">
+                <div class="eyebrow">New arrival</div>
+                <h1>Aksesoris Premium<br />Menambah Estetika</h1>
+                <div class="hero-text">
+                  Dengan aksesoris yang tepat, Anda dapat meningkatkan penampilan dan performa gitar Anda. Temukan berbagai aksesoris premium yang akan membuat gitar Anda semakin menonjol.
+                  <a href="Aksesoris.html" class="btn btn-primary">Shop Now</a>
+                  <a href="Aksesoris.html" class="btn btn-secondary">Browse</a>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+          <div class="hero-slide" style="background-image: url('https://images.unsplash.com/photo-1520637836862-4d197d17c90a?auto=format&fit=crop&w=1600&q=80');">
+            <div class="hero-overlay"></div>
+            <div class="container hero-inner">
+              <div class="hero-copy">
+                <div class="eyebrow">Performance</div>
+                <h1>DRUM SET<br />FOR EVERY BEAT</h1>
+                <div class="hero-text">
+                  Dari latihan sampai live performance, set drum kami dibuat untuk menghasilkan attack yang kuat, pengalaman bermain yang nyaman, dan suara yang konsisten.
+                </div>
+                <div class="cta-row">
+                  <a href="DrumCAT.html" class="btn btn-primary">Explore</a>
+                  <a href="contact.html" class="btn btn-secondary">Ask Expert</a>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+          <div class="hero-slide" style="background-image: url('https://images.unsplash.com/photo-1544698310-74ea9d1c8258?auto=format&fit=crop&w=1600&q=80');">
+            <div class="hero-overlay"></div>
+            <div class="container hero-inner">
+              <div class="hero-copy">
+                <div class="eyebrow">Studio sound</div>
+                <h1>KEYBOARD &amp;<br />SYNTH POWER</h1>
+                <div class="hero-text">
+                  Rasakan kreativitas tanpa batas dengan keyboard dan synth yang menghadirkan suara ekspresif, responsif, dan siap untuk produksi maupun live set.
+                </div>
+                <div class="cta-row">
+                  <a href="KeyboardCAT.html" class="btn btn-primary">Discover</a>
+                  <a href="KeyboardCAT.html" class="btn btn-secondary">Demo</a>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+          <div class="hero-nav" aria-label="Hero navigation">
+            <button class="hero-arrow hero-prev" type="button" aria-label="Previous slide">&#8249;</button>
+            <button class="hero-arrow hero-next" type="button" aria-label="Next slide">&#8250;</button>
+          </div>
+
+          <div class="hero-dots" aria-label="Slider dots">
+            <button class="hero-dot is-active" type="button" aria-label="Go to slide 1" aria-current="true"></button>
+            <button class="hero-dot" type="button" aria-label="Go to slide 2" aria-current="false"></button>
+            <button class="hero-dot" type="button" aria-label="Go to slide 3" aria-current="false"></button>
+            <button class="hero-dot" type="button" aria-label="Go to slide 4" aria-current="false"></button>
+          </div>
+
+          <button class="hero-toggle" type="button" aria-label="Pause autoplay">Stop</button>
+        </div>
+      </section>
+
+      <section>
+        <div class="container">
+          <div class="section-head">
+            <h2>Pilihan terlaris</h2>
+            <a class="section-link" href="products.html">Jelajahi semua katalog</a>
+          </div>
+
+          <div class="product-slider">
+            <button class="slider-btn" type="button" data-dir="prev" aria-label="Previous product">&#8249;</button>
+
+            <div class="product-grid" id="productGrid">
+              <article class="product-card">
+                <img src="ELECTRIC%20GUITAR/catalog-fender-player-ii-telecaster.jpg" alt="Fender FSR Player II Telecaster, Lavender Haze" loading="lazy" />
+                <div class="content">
+                  <div class="kicker">Gitar Elektrik</div>
+                  <h3>FSR Player II Telecaster</h3>
+                  <p>Telecaster edisi FSR dengan fingerboard rosewood dan finishing Lavender Haze.</p>
+                  <div class="price-row">
+                    <div class="price">Rp 27.650.000</div>
+                    <span class="tag">Terlaris</span>
+                  </div>
+                  <a class="catalog-link" href="GuitarCAT.html">Lihat katalog gitar</a>
+                </div>
+              </article>
+
+              <article class="product-card">
+                <img src="BASS/catalog-fender-player-ii-jazz-bass.jpg" alt="Fender FSR Player II Jazz Bass, Lavender Haze" loading="lazy" />
+                <div class="content">
+                  <div class="kicker">Bass</div>
+                  <h3>FSR Player II Jazz Bass</h3>
+                  <p>Jazz Bass edisi FSR dengan fingerboard rosewood dan warna Lavender Haze.</p>
+                  <div class="price-row">
+                    <div class="price">Rp 27.650.000</div>
+                    <span class="tag">Terlaris</span>
+                  </div>
+                  <a class="catalog-link" href="BassCAT.html">Lihat katalog bass</a>
+                </div>
+              </article>
+
+              <article class="product-card">
+                <img src="DRUM/TAMA%20LJK44H4-ISP%20Club-JAM%20Flyer%204-Piece%20w%20Hardware%20%26%20Throne%2C%20Indigo%20Sparkle.avif" alt="TAMA Club-JAM Flyer 4-Piece, Indigo Sparkle" loading="lazy" />
+                <div class="content">
+                  <div class="kicker">Drum &amp; Perkusi</div>
+                  <h3>Club-JAM Flyer 4-Piece</h3>
+                  <p>Set drum ringkas empat bagian, lengkap dengan hardware dan throne.</p>
+                  <div class="price-row">
+                    <div class="price">Rp 10.200.000</div>
+                    <span class="tag">Terlaris</span>
+                  </div>
+                  <a class="catalog-link" href="DrumCAT.html">Lihat katalog drum</a>
+                </div>
+              </article>
+
+              <article class="product-card">
+                <img src="KEYBOARD/Yamaha%20PSR-SX600%2061-key%20Arranger%20Workstation.avif" alt="Yamaha PSR-SX600 61-key Arranger Workstation" loading="lazy" />
+                <div class="content">
+                  <div class="kicker">Keyboard</div>
+                  <h3>Yamaha PSR-SX600</h3>
+                  <p>Arranger workstation 61 tuts untuk bermain di rumah maupun di panggung.</p>
+                  <div class="price-row">
+                    <div class="price">Rp 10.859.220</div>
+                    <span class="tag">Terlaris</span>
+                  </div>
+                  <a class="catalog-link" href="KeyboardCAT.html">Lihat katalog keyboard</a>
+                </div>
+              </article>
+
+              <article class="product-card">
+                <img src="ELECTRIC%20GUITAR/catalog-heritage-h535-scarlet.jpg" alt="Heritage Ascent+ Collection H-535, Scarlet Red Burst" loading="lazy" />
+                <div class="content">
+                  <div class="kicker">Gitar Elektrik</div>
+                  <h3>Heritage Ascent+ H-535</h3>
+                  <p>Gitar Heritage dengan finishing Scarlet Red Burst dan karakter suara yang khas.</p>
+                  <div class="price-row">
+                    <div class="price">Rp 9.800.000</div>
+                    <span class="tag">Pilihan</span>
+                  </div>
+                  <a class="catalog-link" href="GuitarCAT.html">Lihat katalog gitar</a>
+                </div>
+              </article>
+
+              <article class="product-card">
+                <img src="ELECTRIC%20GUITAR/catalog-ibanez-gb10em.jpg" alt="Ibanez GB10EM-AA George Benson Signature, Antique Amber" loading="lazy" />
+                <div class="content">
+                  <div class="kicker">Gitar Elektrik</div>
+                  <h3>Ibanez GB10EM-AA</h3>
+                  <p>Gitar signature George Benson dengan finishing Antique Amber.</p>
+                  <div class="price-row">
+                    <div class="price">Rp 17.200.000</div>
+                    <span class="tag">Pilihan</span>
+                  </div>
+                  <a class="catalog-link" href="GuitarCAT.html">Lihat katalog gitar</a>
+                </div>
+              </article>
+
+              <article class="product-card">
+                <img src="BASS/Squier%20Limited%20Edition%20Paranormal%20Rascal%20Bass%20HH%20Guitar%2C%20Laurel%20FB%2C%20Candy%20Apple%20Red.avif" alt="Squier Limited Edition Paranormal Rascal Bass HH, Candy Apple Red" loading="lazy" />
+                <div class="content">
+                  <div class="kicker">Bass</div>
+                  <h3>Squier Paranormal Rascal Bass HH</h3>
+                  <p>Bass edisi terbatas dengan fingerboard laurel dan finishing Candy Apple Red.</p>
+                  <div class="price-row">
+                    <div class="price">Rp 9.320.000</div>
+                    <span class="tag">Pilihan</span>
+                  </div>
+                  <a class="catalog-link" href="BassCAT.html">Lihat katalog bass</a>
+                </div>
+              </article>
+
+              <article class="product-card">
+                <img src="BASS/Sterling%20S.U.B%20Series%20RAY5%205-String%20Left-Handed%20Electric%20Bass%20Guitar%2C%20Chopper%20Blue.avif" alt="Sterling S.U.B Series RAY5 5-String Left-Handed, Chopper Blue" loading="lazy" />
+                <div class="content">
+                  <div class="kicker">Bass</div>
+                  <h3>Sterling S.U.B Series RAY5</h3>
+                  <p>Bass elektrik 5-string untuk pemain kidal dalam warna Chopper Blue.</p>
+                  <div class="price-row">
+                    <div class="price">Rp 10.900.000</div>
+                    <span class="tag">Pilihan</span>
+                  </div>
+                  <a class="catalog-link" href="BassCAT.html">Lihat katalog bass</a>
+                </div>
+              </article>
+
+              <article class="product-card">
+                <img src="DRUM/TAMA%20RM52KH6-CPM%20Rhythm%20Mate%20Limited%205-Pc%20Drum%20Set%20w%20Hardware%26Throne%2C%20Candy%20Apple%20Mist.avif" alt="TAMA Rhythm Mate Limited 5-Piece, Candy Apple Mist" loading="lazy" />
+                <div class="content">
+                  <div class="kicker">Drum &amp; Perkusi</div>
+                  <h3>TAMA Rhythm Mate Limited</h3>
+                  <p>Drum set lima bagian dengan hardware dan throne, dalam finishing Candy Apple Mist.</p>
+                  <div class="price-row">
+                    <div class="price">Rp 12.350.000</div>
+                    <span class="tag">Pilihan</span>
+                  </div>
+                  <a class="catalog-link" href="DrumCAT.html">Lihat katalog drum</a>
+                </div>
+              </article>
+
+              <article class="product-card">
+                <img src="DRUM/Yamaha%20Drum%20Electronic%20DTX-6K2X.avif" alt="Yamaha DTX-6K2X Electronic Drum Kit" loading="lazy" />
+                <div class="content">
+                  <div class="kicker">Drum &amp; Perkusi</div>
+                  <h3>Yamaha DTX-6K2X</h3>
+                  <p>Drum elektronik dengan suara dan ambience drum yang direkam di studio.</p>
+                  <div class="price-row">
+                    <div class="price">Rp 11.798.000</div>
+                    <span class="tag">Pilihan</span>
+                  </div>
+                  <a class="catalog-link" href="DrumCAT.html">Lihat katalog drum</a>
+                </div>
+              </article>
+
+              <article class="product-card">
+                <img src="KEYBOARD/catalog-casio-ct-x3000.jpg" alt="Casio CT-X3000 61-Key Portable Keyboard" loading="lazy" />
+                <div class="content">
+                  <div class="kicker">Keyboard</div>
+                  <h3>Casio CT-X3000</h3>
+                  <p>Keyboard portabel 61 tuts dengan sound engine AiX dan speaker internal.</p>
+                  <div class="price-row">
+                    <div class="price">Rp 5.040.000</div>
+                    <span class="tag">Pilihan</span>
+                  </div>
+                  <a class="catalog-link" href="KeyboardCAT.html">Lihat katalog keyboard</a>
+                </div>
+              </article>
+
+              <article class="product-card">
+                <img src="KEYBOARD/Roland%20GOKEYS%203%20Music%20Creation%20Keyboard%2C%20Midnight%20Blue.avif" alt="Roland GO:KEYS 3 Music Creation Keyboard, Midnight Blue" loading="lazy" />
+                <div class="content">
+                  <div class="kicker">Keyboard</div>
+                  <h3>Roland GO:KEYS 3</h3>
+                  <p>Keyboard kreasi musik portabel berwarna Midnight Blue. Harga Rp 6.500.000 merupakan estimasi.</p>
+                  <div class="price-row">
+                    <div class="price">Rp 6.500.000*</div>
+                    <span class="tag">Estimasi</span>
+                  </div>
+                  <a class="catalog-link" href="KeyboardCAT.html">Lihat katalog keyboard</a>
+                </div>
+              </article>
+            </div>
+
+            
+
+            <button class="slider-btn" type="button" data-dir="next" aria-label="Next product">&#8250;</button>
+          </div>
+        </div>
+      </section>
+
+      <section class="history-top">
+        <div class="container history-top-inner">
+          <div class="history-top-copy">
+            <div class="eyebrow">Sejarah toko kami</div>
+            <h2>Dimulai dari cinta kecil pada musik.</h2>
+            <p>
+              DIS3BUTE lahir dari keinginan untuk menghadirkan produk musik berkualitas bagi
+              para musisi pemula hingga profesional. Berawal dari ruang kecil dengan beberapa
+              pilihan alat musik terbaik, toko ini tumbuh berkat semangat, pelayanan, dan
+              komitmen untuk membantu setiap musisi menemukan suara terbaiknya.
+            </p>
+
+            <div class="history-top-stats">
+              <div class="stat">
+                <strong>2014</strong>
+                <span>Dimulai dari toko musik kecil</span>
+              </div>
+              <div class="stat">
+                <strong>2018</strong>
+                <span>Perluasan produk dan layanan</span>
+              </div>
+              <div class="stat">
+                <strong>2026</strong>
+                <span>Dipercaya oleh komunitas musisi</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="history-top-photo" aria-label="Sejarah DIS3BUTE"></div>
+        </div>
+      </section>
+    </main>
+
+    <script>
+      const heroSlides = Array.from(document.querySelectorAll('.hero-slide'));
+      const heroDots = Array.from(document.querySelectorAll('.hero-dot'));
+      const heroPrev = document.querySelector('.hero-prev');
+      const heroNext = document.querySelector('.hero-next');
+      const heroToggle = document.querySelector('.hero-toggle');
+      let heroIndex = 0;
+      let heroTimer;
+      let isAutoPlay = true;
+
+      function showHeroSlide(index) {
+        heroIndex = (index + heroSlides.length) % heroSlides.length;
+
+        heroSlides.forEach((slide, idx) => {
+          slide.classList.toggle('is-active', idx === heroIndex);
+        });
+
+        heroDots.forEach((dot, idx) => {
+          const active = idx === heroIndex;
+          dot.classList.toggle('is-active', active);
+          dot.setAttribute('aria-current', active ? 'true' : 'false');
+        });
+      }
+
+      function goToSlide(direction) {
+        showHeroSlide(heroIndex + direction);
+        if (isAutoPlay) {
+          resetHeroTimer();
+        }
+      }
+
+      function resetHeroTimer() {
+        if (heroTimer) clearInterval(heroTimer);
+        heroTimer = setInterval(() => {
+          if (isAutoPlay) {
+            showHeroSlide(heroIndex + 1);
+          }
+        }, 7000);
+      }
+
+      function toggleAutoPlay() {
+        isAutoPlay = !isAutoPlay;
+
+        if (isAutoPlay) {
+          heroToggle.textContent = 'Stop';
+          resetHeroTimer();
+        } else {
+          heroToggle.textContent = 'Play';
+          if (heroTimer) clearInterval(heroTimer);
+        }
+      }
+
+      if (heroPrev) {
+        heroPrev.addEventListener('click', () => goToSlide(-1));
+      }
+
+      if (heroNext) {
+        heroNext.addEventListener('click', () => goToSlide(1));
+      }
+
+      heroDots.forEach((dot, idx) => {
+        dot.addEventListener('click', () => {
+          showHeroSlide(idx);
+          if (isAutoPlay) {
+            resetHeroTimer();
+          }
+        });
+      });
+
+      if (heroToggle) {
+        heroToggle.addEventListener('click', toggleAutoPlay);
+      }
+
+      resetHeroTimer();
+
+      const productGrid = document.querySelector('#productGrid');
+
+      if (productGrid) {
+        const scrollByCard = (direction) => {
+          const cardWidth = productGrid.querySelector('.product-card')?.offsetWidth || 300;
+          const gap = 28;
+          productGrid.scrollBy({
+            left: direction * (cardWidth + gap),
+            behavior: 'smooth',
+          });
+        };
+
+        document.querySelectorAll('.slider-btn').forEach((btn) => {
+          btn.addEventListener('click', () => {
+            const dir = btn.dataset.dir === 'next' ? 1 : -1;
+            scrollByCard(dir);
+          });
+        });
+      }
+    </script>
+
+    <footer class="footer">
+      <div class="container">
+        <div class="footer-top">
+          <div class="footer-brand">
+            <div class="footer-logo">DIS3BUTE</div>
+            <div class="small">Toko musik yang menyediakan segala kebutuhan musik anda.</div>
+          </div>
+        </div>
+
+        <div class="footer-bottom">
+          <div>© 2026 DIS3BUTE Corporation. All rights reserved.</div>
+          <div class="socials" aria-label="social media"></div>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

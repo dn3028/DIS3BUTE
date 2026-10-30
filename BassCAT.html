@@ -1,0 +1,1309 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Katalog Bass | DIS3BUTE</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+    <style>
+      :root {
+        --bg: #f5f2ed;
+        --panel: #ffffff;
+        --ink: #171717;
+        --muted: #585858;
+        --line: rgba(17, 17, 17, 0.12);
+        --soft: #efefef;
+        --accent: #d7d0c4;
+        --dark: #121212;
+        --red: #b4161f;
+        --shadow: 0 18px 42px rgba(0, 0, 0, 0.12);
+      }
+
+      * { box-sizing: border-box; }
+
+      html { scroll-behavior: smooth; }
+
+      body {
+        margin: 0;
+        font-family: Arial, Helvetica, sans-serif;
+        background: var(--bg);
+        color: var(--ink);
+      }
+
+      img {
+        max-width: 100%;
+        display: block;
+      }
+
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+
+      button, input {
+        font: inherit;
+      }
+
+      .topbar {
+        background: #111;
+        color: #f3f3f3;
+        font-size: 11px;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        text-align: center;
+        padding: 10px 20px;
+      }
+
+      .container {
+        width: min(1280px, calc(100% - 32px));
+        margin: 0 auto;
+      }
+
+      .header {
+        background: rgba(255, 255, 255, 0.82);
+        backdrop-filter: blur(8px);
+        position: sticky;
+        top: 0;
+        z-index: 20;
+        border-bottom: 1px solid var(--line);
+      }
+
+      .header-inner {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 20px;
+        height: 60px;
+      }
+
+      .brand {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        min-width: 150px;
+      }
+
+      .brand-mark {
+        font-family: 'Montserrat', sans-serif;
+  font-weight: 900;
+  letter-spacing: 0.13em;
+  font-size: 2.2rem;
+      }
+
+      .nav {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 40px;
+        flex: 2;
+        font-size: 14px;
+        font-weight: 600;
+      }
+
+      .nav-item {
+        position: relative;
+      }
+
+      .nav a {
+        font-family: 'Montserrat', sans-serif;
+        position: relative;
+        color: #161616;
+        text-transform: none;
+        display: inline-block;
+        transition: color 0.25s ease;
+      }
+
+      .nav a::after {
+        content: "";
+        position: absolute;
+        left: 0;
+        bottom: -8px;
+        width: 100%;
+        height: 1px;
+        background: currentColor;
+        transform: scaleX(0);
+        transform-origin: left;
+        transition: transform 0.25s ease;
+      }
+
+      .nav a:hover::after,
+      .nav a:focus-visible::after,
+      .nav .nav-item:hover > a::after,
+      .nav .nav-item:focus-within > a::after {
+        transform: scaleX(1);
+      }
+
+      .dropdown {
+        position: absolute;
+        top: calc(100% + 18px);
+        left: 0;
+        min-width: 220px;
+        background: rgba(255, 255, 255, 0.96);
+        border: 1px solid var(--line);
+        box-shadow: var(--shadow);
+        padding: 12px 0;
+        opacity: 0;
+        visibility: hidden;
+        transform: translateY(8px);
+        transition: all 0.2s ease;
+        z-index: 30;
+      }
+
+      .nav-item:hover .dropdown,
+      .nav-item:focus-within .dropdown {
+        opacity: 1;
+        visibility: visible;
+        transform: translateY(0);
+      }
+
+      .dropdown a {
+        display: block;
+        position: relative;
+        padding: 10px 16px;
+        font-size: 13px;
+        letter-spacing: 0.04em;
+        color: var(--ink);
+        transition: color 0.25s ease;
+      }
+
+      .dropdown a::after {
+        content: "";
+        position: absolute;
+        left: 16px;
+        bottom: 8px;
+        width: calc(100% - 32px);
+        height: 1px;
+        background: currentColor;
+        transform: scaleX(0);
+        transform-origin: left;
+        transition: transform 0.25s ease;
+      }
+
+      .dropdown a:hover::after,
+      .dropdown a:focus-visible::after {
+        transform: scaleX(1);
+      }
+
+      .header-tools {
+        display: flex;
+        align-items: center;
+        gap: 18px;
+        font-size: 14px;
+        font-weight: 600;
+      }
+
+      .header-tools .ghost {
+        padding: 11px 18px;
+        border: 1px solid var(--line);
+        background: transparent;
+      }
+
+      .header-tools .cart {
+        position: relative;
+        width: 18px;
+        height: 18px;
+        border: 2px solid var(--ink);
+        border-top: 0;
+        border-radius: 2px;
+        display: inline-block;
+      }
+
+      .header-tools .cart::before {
+        content: "";
+        position: absolute;
+        left: 2px;
+        top: -7px;
+        width: 10px;
+        height: 10px;
+        border: 2px solid var(--ink);
+        border-bottom: 0;
+        border-radius: 8px 8px 0 0;
+      }
+
+      .hero {
+        background: linear-gradient(90deg, rgba(7,7,7,0.82), rgba(7,7,7,0.45)),
+          url('https://images.unsplash.com/photo-1511379938547-c1f69419868d?auto=format&fit=crop&w=1600&q=80') center/cover no-repeat;
+        min-height: 700px;
+        display: flex;
+        align-items: center;
+      }
+
+      .hero-inner {
+        display: grid;
+        grid-template-columns: 1.1fr 0.9fr;
+        min-height: 700px;
+        align-items: center;
+      }
+
+      .hero-copy {
+        color: #fff;
+        padding: 48px 0;
+      }
+
+      .eyebrow {
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        font-weight: 700;
+        font-size: 12px;
+        opacity: 0.9;
+        margin-bottom: 16px;
+      }
+
+      h1 {
+        margin: 0;
+        font-size: clamp(3rem, 6vw, 6rem);
+        line-height: 0.92;
+        letter-spacing: -0.05em;
+        max-width: 620px;
+      }
+
+      .hero-text {
+        margin-top: 20px;
+        max-width: 600px;
+        font-size: 20px;
+        line-height: 1.5;
+        color: rgba(255,255,255,0.8);
+      }
+
+      .cta-row {
+        margin-top: 32px;
+        display: flex;
+        gap: 16px;
+        flex-wrap: wrap;
+      }
+
+      .btn {
+        border: 2px solid transparent;
+        padding: 16px 26px;
+        font-weight: 700;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-width: 158px;
+      }
+
+      .btn-primary {
+        background: #fff;
+        color: #111;
+      }
+
+      .btn-primary:hover { background: #f2f2f2; }
+
+      .btn-secondary {
+        background: transparent;
+        color: #fff;
+        border-color: rgba(255,255,255,0.6);
+      }
+
+      .btn-secondary:hover { background: rgba(255,255,255,0.08); }
+
+      .hero-info {
+        display: flex;
+        justify-content: flex-end;
+      }
+
+      .stat-card {
+        width: min(100%, 440px);
+        background: rgba(18, 18, 18, 0.42);
+        border: 1px solid rgba(255,255,255,0.24);
+        padding: 30px 28px;
+        color: #fff;
+        backdrop-filter: blur(6px);
+      }
+
+      .stat-card h3 {
+        margin: 0 0 18px;
+        font-size: 18px;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+      }
+
+      .stat-item {
+        display: flex;
+        justify-content: space-between;
+        gap: 16px;
+        padding: 14px 0;
+        border-top: 1px solid rgba(255,255,255,0.16);
+        font-size: 14px;
+      }
+
+      .stat-item strong {
+        font-size: 18px;
+      }
+
+      section {
+        padding: 84px 0;
+      }
+
+      .section-head {
+        display: flex;
+        align-items: end;
+        justify-content: space-between;
+        gap: 24px;
+        margin-bottom: 30px;
+      }
+
+      .section-head h2 {
+        font-size: clamp(2rem, 3vw, 3rem);
+        margin: 0;
+        letter-spacing: -0.05em;
+        line-height: 1;
+      }
+
+      .section-link {
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        font-size: 12px;
+      }
+
+      .product-slider {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+      }
+
+      .slider-btn {
+        width: 42px;
+        height: 42px;
+        border: 1px solid var(--line);
+        background: #fff;
+        color: var(--ink);
+        font-size: 28px;
+        line-height: 1;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        flex-shrink: 0;
+      }
+
+      .slider-btn:hover {
+        background: var(--ink);
+        color: #fff;
+      }
+
+      .product-grid {
+        display: flex;
+        gap: 24px;
+        overflow-x: auto;
+        padding: 8px 4px 10px;
+        scroll-snap-type: x proximity;
+        scrollbar-width: none;
+        scroll-behavior: smooth;
+        flex: 1;
+      }
+
+      .product-grid::-webkit-scrollbar {
+        display: none;
+      }
+
+      .product-card {
+        flex: 0 0 280px;
+        min-width: 280px;
+        background: var(--panel);
+        border: 1px solid var(--line);
+        border-radius: 14px;
+        overflow: hidden;
+        scroll-snap-align: start;
+        box-shadow: 0 10px 24px rgba(17, 17, 17, 0.04);
+      }
+
+      .product-card img {
+        height: 330px;
+        width: 100%;
+        object-fit: cover;
+        display: block;
+      }
+
+      .product-card .content {
+        padding: 18px 18px 20px;
+      }
+
+      .product-card .kicker {
+        font-size: 10px;
+        font-weight: 700;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: var(--muted);
+      }
+
+      .product-card h3 {
+        margin: 10px 0 8px;
+        font-size: 1.5rem;
+        letter-spacing: -0.04em;
+        line-height: 1.1;
+      }
+
+      .product-card p {
+        margin: 0;
+        color: var(--muted);
+        font-size: 15px;
+        line-height: 1.5;
+      }
+
+      .product-card .price-row {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        margin-top: 16px;
+        padding-top: 12px;
+        border-top: 1px solid var(--line);
+      }
+
+      .product-card .price {
+        font-size: 1.35rem;
+        font-weight: 800;
+        letter-spacing: -0.04em;
+      }
+
+      .product-card .tag {
+        font-size: 10px;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        font-weight: 700;
+        color: var(--ink);
+        background: #f3eee8;
+        padding: 7px 8px;
+      }
+
+      .split-showcase {
+        display: grid;
+        grid-template-columns: 1.05fr 0.95fr;
+        gap: 30px;
+        align-items: stretch;
+      }
+
+      .showcase-photo {
+        min-height: 540px;
+        background: url('https://images.unsplash.com/photo-1525201548942-d8732f6617a0?auto=format&fit=crop&w=1200&q=80') center/cover no-repeat;
+      }
+
+      .showcase-copy {
+        background: #efefee;
+        border: 1px solid var(--line);
+        padding: 42px 36px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+      }
+
+      .showcase-copy .eyebrow {
+        color: var(--ink);
+      }
+
+      .showcase-copy h2 {
+        margin: 0 0 18px;
+        font-size: clamp(2.3rem, 4vw, 4rem);
+        letter-spacing: -0.05em;
+        line-height: 0.98;
+      }
+
+      .showcase-copy p {
+        color: var(--muted);
+        font-size: 18px;
+        line-height: 1.6;
+      }
+
+      .app-grid {
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 24px;
+      }
+
+      .app-card {
+        background: var(--panel);
+        border: 1px solid var(--line);
+        padding: 24px 18px 30px;
+        display: flex;
+        flex-direction: column;
+        min-height: 260px;
+      }
+
+      .app-icon {
+        width: 58px;
+        height: 58px;
+        border-radius: 16px;
+        background: linear-gradient(135deg, #121212, #4f4f4f);
+        display: grid;
+        place-items: center;
+        color: #fff;
+        font-weight: 700;
+        font-size: 1.3rem;
+        margin-bottom: 18px;
+      }
+
+      .app-card h3 {
+        font-size: 1.5rem;
+        letter-spacing: -0.04em;
+        margin: 0 0 8px;
+      }
+
+      .app-card p {
+        margin: 0;
+        color: var(--muted);
+        line-height: 1.6;
+        flex: 1;
+      }
+
+      .app-card .link {
+        display: inline-block;
+        margin-top: 18px;
+        font-weight: 700;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+        font-size: 12px;
+      }
+
+      .story {
+        background: #1f1f1f;
+        color: #fff;
+      }
+
+      .story-inner {
+        display: grid;
+        grid-template-columns: 1.05fr 0.95fr;
+        gap: 30px;
+        align-items: center;
+      }
+
+      .story-photo {
+        min-height: 520px;
+        background: url('https://images.unsplash.com/photo-1507838153414-b4b713384a76?auto=format&fit=crop&w=1200&q=80') center/cover no-repeat;
+      }
+
+      .story-copy {
+        padding: 10px 0;
+      }
+
+      .story-copy h2 {
+        font-size: clamp(2.2rem, 4vw, 4.2rem);
+        line-height: 0.98;
+        letter-spacing: -0.05em;
+        margin: 0 0 22px;
+      }
+
+      .story-copy p {
+        color: rgba(255,255,255,0.74);
+        font-size: 18px;
+        line-height: 1.7;
+        margin: 0 0 28px;
+      }
+
+      .newsletter {
+        background: #f3efe9;
+        border-top: 1px solid var(--line);
+        border-bottom: 1px solid var(--line);
+      }
+
+      .newsletter-inner {
+        display: grid;
+        grid-template-columns: 1.2fr 0.8fr;
+        gap: 24px;
+        align-items: center;
+        padding: 24px 0;
+      }
+
+      .newsletter h3 {
+        margin: 0;
+        font-size: clamp(2rem, 3vw, 3rem);
+        letter-spacing: -0.05em;
+      }
+
+      .newsletter p {
+        margin: 8px 0 0;
+        color: var(--muted);
+      }
+
+      .signup {
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        gap: 14px;
+      }
+
+      .signup input {
+        flex: 1;
+        min-width: 260px;
+        border: 1px solid var(--line);
+        background: #fff;
+        padding: 18px 18px;
+        font-size: 16px;
+      }
+
+      .signup button {
+        border: none;
+        background: #111;
+        color: #fff;
+        padding: 18px 22px;
+        min-width: 140px;
+        font-weight: 700;
+      }
+
+      .footer {
+        background: #111;
+        color: #fff;
+        padding: 52px 0 28px;
+      }
+
+      .footer-top {
+        display: flex;
+        justify-content: center;
+        padding-bottom: 32px;
+        text-align: center;
+      }
+
+      .footer-brand {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 18px;
+      }
+
+      .footer-logo {
+        font-family: 'Montserrat', sans-serif;
+  font-weight: 900;
+  letter-spacing: 0.18em;
+  font-size: 1.5rem;
+      }
+
+      .footer .small {
+        color: rgba(255,255,255,0.7);
+        line-height: 1.7;
+      }
+
+      .footer h4 {
+        margin: 0 0 16px;
+        font-size: 14px;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: rgba(255,255,255,0.8);
+      }
+
+      .footer ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        display: grid;
+        gap: 10px;
+      }
+
+      .footer a {
+        color: rgba(255,255,255,0.82);
+      }
+
+      .footer-bottom {
+        border-top: 1px solid rgba(255,255,255,0.2);
+        padding-top: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 20px;
+        flex-wrap: wrap;
+        color: rgba(255,255,255,0.7);
+        font-size: 13px;
+      }
+
+      .socials {
+        display: flex;
+        gap: 12px;
+        flex-wrap: wrap;
+      }
+
+      .socials span {
+        width: 32px;
+        height: 32px;
+        border-radius: 50%;
+        border: 1px solid rgba(255,255,255,0.2);
+        display: grid;
+        place-items: center;
+        background: rgba(255,255,255,0.04);
+      }
+
+      .catalog-page {
+        background: #f7f3ee;
+      }
+
+      .catalog-hero {
+        background: linear-gradient(180deg, #f7f3ee 0%, #f1ede6 100%);
+        border-bottom: 1px solid var(--line);
+        padding: 72px 0 32px;
+      }
+
+      .catalog-hero h1 {
+        margin: 0;
+        font-size: clamp(2.8rem, 5vw, 5rem);
+        line-height: 0.94;
+        letter-spacing: -0.06em;
+      }
+
+      .catalog-hero p {
+        margin: 18px 0 0;
+        max-width: 760px;
+        color: var(--muted);
+        font-size: 18px;
+        line-height: 1.7;
+      }
+
+      .catalog-wrap {
+        padding: 52px 0 72px;
+      }
+
+      .guitar-catalog {
+        padding: 64px 0 80px;
+      }
+
+      .catalog-intro {
+        display: flex;
+        align-items: end;
+        justify-content: space-between;
+        gap: 32px;
+        margin-bottom: 32px;
+      }
+
+      .catalog-intro h1 {
+        max-width: 720px;
+        margin: 10px 0 14px;
+        font-size: clamp(2.8rem, 5vw, 5rem);
+        line-height: 0.94;
+        letter-spacing: -0.06em;
+      }
+
+      .catalog-intro p {
+        max-width: 680px;
+        margin: 0;
+        color: var(--muted);
+        font-size: 17px;
+        line-height: 1.7;
+      }
+
+      .catalog-count {
+        flex: 0 0 auto;
+        color: var(--muted);
+        font-size: 14px;
+      }
+
+      .catalog-toolbar {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        margin-bottom: 24px;
+        padding: 16px;
+        border: 1px solid var(--line);
+        background: #fff;
+      }
+
+      .catalog-toolbar input,
+      .catalog-toolbar select {
+        min-height: 46px;
+        border: 1px solid var(--line);
+        background: #fff;
+        padding: 0 14px;
+        color: var(--ink);
+      }
+
+      .catalog-toolbar input {
+        flex: 1;
+        min-width: 180px;
+      }
+
+      .catalog-products {
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 22px;
+      }
+
+      .guitar-card {
+        min-width: 0;
+        overflow: hidden;
+        border: 1px solid var(--line);
+        background: #fff;
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+      }
+
+      .guitar-card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 16px 32px rgba(17, 17, 17, 0.09);
+      }
+
+      .guitar-card img {
+        display: block;
+        width: 100%;
+        height: 320px;
+        padding: 22px 22px 0;
+        background: #fff;
+        object-fit: contain;
+      }
+
+      .guitar-card-content {
+        padding: 20px;
+      }
+
+      .guitar-card-label {
+        color: var(--muted);
+        font-size: 11px;
+        font-weight: 700;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+      }
+
+      .guitar-card h2 {
+        margin: 9px 0 10px;
+        font-size: 1.35rem;
+        letter-spacing: -0.04em;
+      }
+
+      .guitar-card p {
+        min-height: 68px;
+        margin: 0;
+        color: var(--muted);
+        font-size: 14px;
+        line-height: 1.65;
+      }
+
+      .guitar-price {
+        display: block;
+        margin-top: 18px;
+        padding-top: 14px;
+        border-top: 1px solid var(--line);
+        font-size: 1.2rem;
+        font-weight: 700;
+        letter-spacing: -0.03em;
+      }
+
+      .catalog-empty {
+        grid-column: 1 / -1;
+        padding: 40px 20px;
+        border: 1px dashed var(--line);
+        color: var(--muted);
+        text-align: center;
+      }
+
+      .shortcut-header {
+        margin-bottom: 28px;
+        max-width: 760px;
+      }
+
+      .shortcut-header h2 {
+        margin: 10px 0 14px;
+        font-size: clamp(2.2rem, 4vw, 4rem);
+        line-height: 0.98;
+        letter-spacing: -0.06em;
+      }
+
+      .shortcut-header p {
+        margin: 0;
+        color: var(--muted);
+        font-size: 18px;
+        line-height: 1.7;
+      }
+
+      .shortcut-grid {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 24px;
+      }
+
+      .shortcut-card {
+        position: relative;
+        display: block;
+        border: 1px solid var(--line);
+        background: #fff;
+        overflow: hidden;
+        min-height: 360px;
+        transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+      }
+
+      .shortcut-card:hover {
+        transform: translateY(-6px);
+        box-shadow: 0 18px 36px rgba(17, 17, 17, 0.08);
+        border-color: rgba(17, 17, 17, 0.2);
+      }
+
+      .shortcut-card img {
+        width: 100%;
+        height: 250px;
+        object-fit: cover;
+        display: block;
+      }
+
+      .shortcut-copy {
+        padding: 20px 20px 22px;
+        background: linear-gradient(180deg, rgba(255,255,255,0.98), rgba(247,243,238,0.98));
+      }
+
+      .shortcut-label {
+        display: block;
+        font-size: 11px;
+        font-weight: 700;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: var(--muted);
+        margin-bottom: 10px;
+      }
+
+      .shortcut-copy strong {
+        display: block;
+        font-size: clamp(1.5rem, 2vw, 2rem);
+        line-height: 1.1;
+        letter-spacing: -0.05em;
+        margin-bottom: 8px;
+      }
+
+      .shortcut-copy small {
+        display: block;
+        color: var(--muted);
+        font-size: 14px;
+        line-height: 1.6;
+      }
+
+      .shortcut-meta {
+        margin-top: 28px;
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 20px;
+      }
+
+      .meta-box {
+        background: #fff;
+        border: 1px solid var(--line);
+        padding: 20px 18px;
+      }
+
+      .meta-box strong {
+        display: block;
+        margin-bottom: 8px;
+        font-size: 1.1rem;
+        letter-spacing: -0.04em;
+      }
+
+      .meta-box span {
+        color: var(--muted);
+        line-height: 1.6;
+      }
+
+      @media (max-width: 980px) {
+        .shortcut-grid,
+        .shortcut-meta {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+      }
+
+      @media (max-width: 620px) {
+        .catalog-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .guitar-catalog {
+          padding: 42px 0 56px;
+        }
+
+        .catalog-intro {
+          align-items: start;
+          flex-direction: column;
+          gap: 16px;
+        }
+
+        .catalog-toolbar {
+          align-items: stretch;
+          flex-direction: column;
+        }
+
+        .catalog-toolbar input,
+        .catalog-toolbar select {
+          width: 100%;
+        }
+
+        .catalog-products {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+      }
+
+      @media (max-width: 980px) {
+        .nav {
+          display: none;
+        }
+
+        .hero-inner,
+        .split-showcase,
+        .story-inner,
+        .newsletter-inner,
+        .footer-top {
+          grid-template-columns: 1fr;
+        }
+
+        .product-grid,
+        .app-grid {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+
+        .signup {
+          justify-content: stretch;
+        }
+
+        .signup input {
+          min-width: 0;
+        }
+      }
+
+      @media (max-width: 620px) {
+        .header-inner {
+          height: auto;
+          padding: 16px 0;
+          flex-wrap: wrap;
+        }
+
+        .hero {
+          min-height: 620px;
+        }
+
+        .hero-inner {
+          min-height: 620px;
+        }
+
+        .product-grid,
+        .app-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .section-head {
+          align-items: start;
+          flex-direction: column;
+        }
+
+        .signup {
+          flex-direction: column;
+          align-items: stretch;
+        }
+
+        .signup input,
+        .signup button {
+          width: 100%;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="topbar">DIS3BUTE - Menyediakan segala kebutuhan musik anda -</div>
+
+    <header class="header">
+      <div class="container header-inner">
+        <div class="brand">
+          <div class="brand-mark"><a href="index.html">DIS3BUTE</a></div>
+        </div>
+
+        <nav class="nav" aria-label="Main navigation">
+          <a href="contact.html">KONTAK</a>
+          <div class="nav-item">
+            <a href="products.html">PRODUCTS</a>
+            <div class="dropdown" aria-label="Products menu">
+              <a href="GuitarCAT.html">Gitar</a>
+              <a href="BassCAT.html">Bass</a>
+              <a href="DrumCAT.html">Drum</a>
+              <a href="KeyboardCAT.html">Keyboard</a>
+              <a href="PianoCAT.html">Piano</a>
+              <a href="Aksesoris.html">Aksesoris</a>
+            </div>
+          </div>
+          <a href="distributor.html">DISTRIBUTOR</a>
+          <a href="service.html">SERVICE</a>
+          <a href="credit.html">CREDIT</a>
+          <a href="order.html">ORDER</a>
+        </nav>
+      </div>
+
+    </header>
+
+      <main class="catalog-page">
+        <section class="guitar-catalog" aria-labelledby="catalog-title">
+          <div class="container">
+            <div class="catalog-intro">
+              <div>
+                <div class="eyebrow">Koleksi bass elektrik</div>
+                <h1 id="catalog-title">Temukan groove khas Anda.</h1>
+                <p>
+                  Jelajahi pilihan bass elektrik dari koleksi foto kami dan temukan model yang cocok dengan gaya bermain Anda. Harga mengacu pada Swee Lee Indonesia dan dapat berubah sewaktu-waktu.
+                </p>
+              </div>
+              <div class="catalog-count" id="catalogCount" aria-live="polite">10 model ditampilkan</div>
+            </div>
+
+            <div class="catalog-toolbar" role="search">
+              <input id="catalogSearch" type="search" placeholder="Cari merek atau model bass..." aria-label="Cari bass" />
+              <label for="catalogSort">Urutkan</label>
+              <select id="catalogSort" aria-label="Urutkan produk">
+                <option value="az">Nama: A–Z</option>
+                <option value="za">Nama: Z–A</option>
+              </select>
+            </div>
+
+            <div class="catalog-products" id="catalogProducts">
+              <article class="guitar-card" data-name="Fender American Professional II Precision Bass Mystic Surf Green">
+                <img src="BASS/Fender%20American%20Professional%20II%20Precision%20Bass%20Electric%20Guitar%2C%20RW%20FB%2C%20Mystic%20Surf%20Green.avif" alt="Fender American Professional II Precision Bass, Mystic Surf Green" loading="lazy" />
+                <div class="guitar-card-content">
+                  <div class="guitar-card-label">Fender</div>
+                  <h2>American Professional II Precision Bass</h2>
+                  <p>Precision Bass dalam finishing Mystic Surf Green.</p>
+                  <strong class="guitar-price">Rp 45.600.000</strong>
+                </div>
+              </article>
+
+              <article class="guitar-card" data-name="Fender FSR Player II Jazz Bass Lavender Haze">
+                <img src="BASS/catalog-fender-player-ii-jazz-bass.jpg" alt="Fender FSR Player II Jazz Bass, Lavender Haze" loading="lazy" />
+                <div class="guitar-card-content">
+                  <div class="guitar-card-label">Fender</div>
+                  <h2>FSR Player II Jazz Bass</h2>
+                  <p>Jazz Bass edisi FSR dengan fingerboard rosewood dan warna Lavender Haze.</p>
+                  <strong class="guitar-price">Rp 27.650.000</strong>
+                </div>
+              </article>
+
+              <article class="guitar-card" data-name="Fender Japan Hybrid II Jazz Bass Forest Blue">
+                <img src="BASS/Fender%20Japan%20Hybrid%20II%20Jazz%20Bass%20Guitar%2C%20Maple%20FB%2C%20Forest%20Blue.avif" alt="Fender Japan Hybrid II Jazz Bass, Forest Blue" loading="lazy" />
+                <div class="guitar-card-content">
+                  <div class="guitar-card-label">Fender Japan</div>
+                  <h2>Hybrid II Jazz Bass</h2>
+                  <p>Hybrid II Jazz Bass dengan fingerboard maple dan finishing Forest Blue.</p>
+                  <strong class="guitar-price">Rp 28.900.000</strong>
+                </div>
+              </article>
+
+              <article class="guitar-card" data-name="Fender Player Plus Precision Bass Cosmic Jade">
+                <img src="BASS/Fender%20Player%20Plus%20Precision%20Bass%20Guitar%2C%20Maple%20FB%2C%20Cosmic%20Jade.avif" alt="Fender Player Plus Precision Bass, Cosmic Jade" loading="lazy" />
+                <div class="guitar-card-content">
+                  <div class="guitar-card-label">Fender</div>
+                  <h2>Player Plus Precision Bass</h2>
+                  <p>Player Plus Precision Bass dengan fingerboard maple dan warna Cosmic Jade.</p>
+                  <strong class="guitar-price">Rp 18.864.000</strong>
+                </div>
+              </article>
+
+              <article class="guitar-card" data-name="Fender Vintera III Early 60s Bass VI Candy Apple Red">
+                <img src="BASS/Fender%20Vintera%20III%20Early%2060s%20Bass%20VI%20Guitar%2C%20RW%20FB%2C%20Candy%20Apple%20Red.avif" alt="Fender Vintera III Early 60s Bass VI, Candy Apple Red" loading="lazy" />
+                <div class="guitar-card-content">
+                  <div class="guitar-card-label">Fender</div>
+                  <h2>Vintera III Early 60s Bass VI</h2>
+                  <p>Bass VI era awal 60-an dalam finishing Candy Apple Red.</p>
+                  <strong class="guitar-price">Rp 35.400.000</strong>
+                </div>
+              </article>
+
+              <article class="guitar-card" data-name="Ibanez Bass Workshop BTB805MS-FNL Florid Natural Low Gloss">
+                <img src="BASS/Ibanez%20Bass%20Workshop%20BTB805MS-FNL%205-String%20Bass%20Guitar%20w%20Case%2C%20Florid%20Natural%20Low%20Gloss.avif" alt="Ibanez Bass Workshop BTB805MS-FNL, Florid Natural Low Gloss" loading="lazy" />
+                <div class="guitar-card-content">
+                  <div class="guitar-card-label">Ibanez</div>
+                  <h2>Bass Workshop BTB805MS-FNL</h2>
+                  <p>Bass Workshop 5-string dengan finishing Florid Natural Low Gloss.</p>
+                  <strong class="guitar-price">Rp 23.750.000</strong>
+                </div>
+              </article>
+
+              <article class="guitar-card" data-name="Spector Euro 4-String Classic Solid White Gloss">
+                <img src="BASS/catalog-spector-euro-classic.jpg" alt="Spector Euro 4-String Classic, Solid White Gloss, Gold Hardware" loading="lazy" />
+                <div class="guitar-card-content">
+                  <div class="guitar-card-label">Spector</div>
+                  <h2>Euro 4-String Classic</h2>
+                  <p>Bass Spector Euro Classic dengan hardware berwarna emas dan finishing Solid White Gloss.</p>
+                  <strong class="guitar-price">Rp 54.500.000</strong>
+                </div>
+              </article>
+
+              <article class="guitar-card" data-name="Squier Limited Edition Paranormal Rascal Bass HH Candy Apple Red">
+                <img src="BASS/Squier%20Limited%20Edition%20Paranormal%20Rascal%20Bass%20HH%20Guitar%2C%20Laurel%20FB%2C%20Candy%20Apple%20Red.avif" alt="Squier Limited Edition Paranormal Rascal Bass HH, Candy Apple Red" loading="lazy" />
+                <div class="guitar-card-content">
+                  <div class="guitar-card-label">Squier</div>
+                  <h2>Limited Edition Paranormal Rascal Bass HH</h2>
+                  <p>Paranormal Rascal Bass HH edisi terbatas dengan fingerboard laurel dan warna Candy Apple Red.</p>
+                  <strong class="guitar-price">Rp 9.320.000</strong>
+                </div>
+              </article>
+
+              <article class="guitar-card" data-name="Squier Mini Precision Bass 2-Color Sunburst">
+                <img src="BASS/Squier%20Mini%20Precision%20Bass%20Guitar%2C%20Laurel%20FB%2C%202-Color%20Sunburst.avif" alt="Squier Mini Precision Bass, 2-Color Sunburst" loading="lazy" />
+                <div class="guitar-card-content">
+                  <div class="guitar-card-label">Squier</div>
+                  <h2>Mini Precision Bass</h2>
+                  <p>Mini Precision Bass dengan fingerboard laurel dan finishing 2-Color Sunburst.</p>
+                  <strong class="guitar-price">Rp 4.950.000</strong>
+                </div>
+              </article>
+
+              <article class="guitar-card" data-name="Sterling SUB Series RAY5 5-String Left-Handed Chopper Blue">
+                <img src="BASS/Sterling%20S.U.B%20Series%20RAY5%205-String%20Left-Handed%20Electric%20Bass%20Guitar%2C%20Chopper%20Blue.avif" alt="Sterling S.U.B Series RAY5 5-String Left-Handed, Chopper Blue" loading="lazy" />
+                <div class="guitar-card-content">
+                  <div class="guitar-card-label">Sterling by Music Man</div>
+                  <h2>S.U.B Series RAY5 Left-Handed</h2>
+                  <p>Bass elektrik 5-string untuk pemain kidal dalam warna Chopper Blue.</p>
+                  <strong class="guitar-price">Rp 10.900.000</strong>
+                </div>
+              </article>
+            </div>
+          </div>
+        </section>
+      </main>
+
+    <script>
+      const catalogProducts = document.querySelector('#catalogProducts');
+      const catalogSearch = document.querySelector('#catalogSearch');
+      const catalogSort = document.querySelector('#catalogSort');
+      const catalogCount = document.querySelector('#catalogCount');
+
+      if (catalogProducts && catalogSearch && catalogSort && catalogCount) {
+        const cards = Array.from(catalogProducts.querySelectorAll('.guitar-card'));
+
+        const updateCatalog = () => {
+          const query = catalogSearch.value.trim().toLocaleLowerCase('id');
+          const visibleCards = cards.filter((card) =>
+            card.dataset.name.toLocaleLowerCase('id').includes(query)
+          );
+          const sortedCards = visibleCards.sort((a, b) => {
+            const comparison = a.dataset.name.localeCompare(b.dataset.name, 'id');
+            return catalogSort.value === 'za' ? -comparison : comparison;
+          });
+
+          cards.forEach((card) => {
+            card.hidden = !visibleCards.includes(card);
+          });
+          sortedCards.forEach((card) => catalogProducts.appendChild(card));
+          catalogCount.textContent = `${visibleCards.length} model ditampilkan`;
+
+          let emptyState = catalogProducts.querySelector('.catalog-empty');
+          if (visibleCards.length === 0) {
+            if (!emptyState) {
+              emptyState = document.createElement('p');
+              emptyState.className = 'catalog-empty';
+              emptyState.textContent = 'Model tidak ditemukan. Coba kata kunci lain.';
+              catalogProducts.appendChild(emptyState);
+            }
+          } else {
+            emptyState?.remove();
+          }
+        };
+
+        catalogSearch.addEventListener('input', updateCatalog);
+        catalogSort.addEventListener('change', updateCatalog);
+        updateCatalog();
+      }
+    </script>
+
+    <footer class="footer">
+      <div class="container">
+        <div class="footer-top">
+          <div class="footer-brand">
+            <div class="footer-logo">DIS3BUTE</div>
+            <div class="small">Toko musik yang menyediakan segala kebutuhan musik anda.</div>
+          </div>
+        </div>
+
+        <div class="footer-bottom">
+          <div>© 2026 DIS3BUTE Corporation. All rights reserved.</div>
+          <div class="socials" aria-label="social media">
+          </div>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>
