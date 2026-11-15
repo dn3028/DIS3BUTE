@@ -816,7 +816,7 @@
 
       .credit-card {
         margin: 0 auto;
-        width: min(760px, 100%);
+        width: min(900px, 100%);
         padding: clamp(32px, 7vw, 72px);
         background: var(--panel);
         border: 1px solid var(--line);
@@ -859,6 +859,43 @@
       .credit-author strong {
         font-family: 'Montserrat', sans-serif;
         font-size: 1.5rem;
+      }
+
+      .credit-sources {
+        margin-top: 32px;
+        padding-top: 28px;
+        border-top: 1px solid var(--line);
+        text-align: left;
+      }
+
+      .credit-sources h2 {
+        margin: 0 0 10px;
+        font-family: 'Montserrat', sans-serif;
+        font-size: 1.2rem;
+      }
+
+      .credit-sources p {
+        margin: 0 0 16px;
+        font-size: 15px;
+      }
+
+      .credit-sources h3 {
+        margin: 22px 0 10px;
+        font-size: 1rem;
+      }
+
+      .credit-sources ul {
+        margin: 0;
+        padding-left: 22px;
+        color: var(--muted);
+        line-height: 1.9;
+      }
+
+      .credit-sources a {
+        color: #1558a6;
+        text-decoration: underline;
+        text-underline-offset: 3px;
+        overflow-wrap: anywhere;
       }
 
       @media (max-width: 980px) {
@@ -964,10 +1001,40 @@
             <div class="eyebrow">Credit</div>
             <h1>Tentang Website Ini</h1>
             <p>
-              Website DIS3BUTE dibuat khusus untuk memenuhi tugas akhir mata pelajaran Informatika SMA NEGEREI 3 BANDUNG.
+              Website DIS3BUTE dibuat khusus untuk memenuhi tugas akhir mata pelajaran Informatika SMA NEGERI 3 BANDUNG, dengan menggunakan referensi dari website toko musik Swee Lee.
               Seluruh halaman dan fitur di dalamnya disusun sebagai bagian dari tugas akhir pembelajaran coding html,
               bukan sebagai website toko resmi atau untuk tujuan komersial.
+
+              Sumber gambar dan konten yang digunakan diambil dari sumber publik dan referensi yang sah, dengan tujuan pendidikan dan pembelajaran.
+              Seluruh hak cipta dan merek dagang yang terkait dengan konten ini tetap menjadi milik pemilik aslinya.
+              Penggunaan konten ini hanya untuk tujuan pembelajaran dan tidak dimaksudkan untuk melanggar hak cipta atau merek dagang.
             </p>
+            <section class="credit-sources" aria-labelledby="sources-title">
+              <h2 id="sources-title">Sumber Gambar</h2>
+              <p>
+                Tautan Swee Lee di bawah membuka pencarian katalog untuk kategori gambar produk yang digunakan.
+                Foto dan merek tetap milik pemegang hak masing-masing.
+              </p>
+
+              <h3>Katalog produk — Swee Lee Indonesia</h3>
+              <ul>
+                <li><a href="https://www.sweelee.co.id/collections/gitar-elektrik" target="_blank" rel="noopener noreferrer">Gitar elektrik dan akustik</a></li>
+                <li><a href="https://www.sweelee.co.id/collections/bass" target="_blank" rel="noopener noreferrer">Bass</a></li>
+                <li><a href="https://www.sweelee.co.id/collections/drum" target="_blank" rel="noopener noreferrer">Drum dan perkusi</a></li>
+                <li><a href="https://www.sweelee.co.id/collections/keyboard" target="_blank" rel="noopener noreferrer">Keyboard dan synthesizer</a></li>
+                <li><a href="https://www.sweelee.co.id/collections/piano" target="_blank" rel="noopener noreferrer">Piano</a></li>
+                <li><a href="https://www.sweelee.co.id/collections/aksesori-bass-gitar" target="_blank" rel="noopener noreferrer">Aksesori musik</a></li>
+              </ul>
+
+              <h3>Foto latar dan ilustrasi — Unsplash</h3>
+              <ul>
+                <li><a href="https://images.unsplash.com/photo-1511379938547-c1f69419868d?auto=format&amp;fit=crop&amp;w=1600&amp;q=80" target="_blank" rel="noopener noreferrer">Studio musik</a></li>
+                <li><a href="https://images.unsplash.com/photo-1525201548942-d8732f6617a0?auto=format&amp;fit=crop&amp;w=1200&amp;q=80" target="_blank" rel="noopener noreferrer">Gitar</a></li>
+                <li><a href="https://images.unsplash.com/photo-1507838153414-b4b713384a76?auto=format&amp;fit=crop&amp;w=1200&amp;q=80" target="_blank" rel="noopener noreferrer">Pertunjukan musik</a></li>
+                <li><a href="https://images.unsplash.com/photo-1520523839897-bd0b52f945a0?auto=format&amp;fit=crop&amp;w=900&amp;q=80" target="_blank" rel="noopener noreferrer">Piano</a></li>
+                <li><a href="https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?auto=format&amp;fit=crop&amp;w=900&amp;q=80" target="_blank" rel="noopener noreferrer">Peralatan studio rekaman</a></li>
+              </ul>
+            </section>
             <div class="credit-author">
               <span>Dibuat oleh</span>
               <strong>Daniel Eleazar Tanu / XI-5 / 12</strong>
